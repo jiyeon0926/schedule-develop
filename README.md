@@ -358,4 +358,4 @@ HTTP/1.1 204 No Content
 # ☁ ERD
 - user 테이블에 등록된 유저만 일정 등록을 할 수 있음
 - 1 : N
-<img src="https://github.com/user-attachments/assets/e41d2dea-3af8-4589-ad50-a048c4e1ecc1"/>
+<img src="https://github.com/user-attachments/assets/92d989a0-764d-4322-92ec-976caf613c62"/>
