@@ -2,7 +2,6 @@ package shcedule.ResponseDto;
 
 import lombok.Getter;
 import shcedule.entity.Schedule;
-import shcedule.entity.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
