@@ -1,13 +1,19 @@
 package shcedule.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import shcedule.ResponseDto.ScheduleResponseDto;
 import shcedule.entity.Schedule;
 import shcedule.entity.User;
 import shcedule.repository.ScheduleRepository;
 import shcedule.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,5 +31,30 @@ public class ScheduleService {
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(savedSchedule);
+    }
+
+    public ScheduleResponseDto findScheduleById(Long id) {
+        Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
+
+        if (optionalSchedule.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
+
+        Schedule schedule = optionalSchedule.get();
+
+        return new ScheduleResponseDto(schedule);
+    }
+
+    public List<ScheduleResponseDto> findAll() {
+        List<Schedule> schedules = scheduleRepository.findAll();
+
+        return schedules.stream()
+                .map(schedule -> new ScheduleResponseDto(schedule))
+                .collect(Collectors.toList());
+    }
+
+    public void scheduleDelete(Long id) {
+        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
+        scheduleRepository.delete(schedule);
     }
 }
