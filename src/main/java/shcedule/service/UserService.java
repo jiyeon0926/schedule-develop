@@ -52,4 +52,14 @@ public class UserService {
         User user = userRepository.findUserByUserIdOrElseThrow(userId);
         userRepository.delete(user);
     }
+
+    public void updatePassword(Long userId, String oldPassword, String newPassword) {
+        User user = userRepository.findUserByUserIdOrElseThrow(userId);
+
+        if (!user.getPassword().equals(oldPassword)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password does not match.");
+        }
+
+        user.updatePassword(newPassword);
+    }
 }

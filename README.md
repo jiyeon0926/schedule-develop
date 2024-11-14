@@ -189,7 +189,7 @@ HTTP/1.1 204 No Content
 |유저 등록|POST|/users|201 Created|400 Bad Request|
 |유저 단건 조회|GET|/users/{userId}|200 OK|404 Not Found|
 |유저 전체 조회|GET|/users|200 OK|빈 배열로 응답하되 상태 코드는 200 OK|
-|유저 비밀번호 수정|PATCH|/users/{userId}|200 OK|400 Bad Request, 404 Not Found|
+|유저 비밀번호 수정|PATCH|/users/{userId}|200 OK|401 Unauthorized, 404 Not Found|
 |유저 삭제|DELETE|/users/{userId}|204 No Content|404 Not Found|
 
 |이름|타입| 설명     |요청 필수 여부|
@@ -305,30 +305,20 @@ PATCH /users/1 HTTP/1.1
 Content-Type: application/json
 
 {
-  "password": "java1234"
+  "oldPassword": "1234",
+  "newPassword": "java1234"
 }
 ```
 #### Success Response
 ```
 HTTP/1.1 200 OK
-Content-Type: application/json
-Location: /users/1
-
-{
-  "userId": 1,
-  "name": "김자바",
-  "email": "java@naver.com",
-  "password": "java1234",
-  "createdDate": "2024-11-01T11:22:33.123+00:00",
-  "modifiedDate": "2024-11-01T11:22:33.123+00:00"
-}
 ```
 #### Error Response
 ```
 {
  "timestamp": "2024-11-01T11:22:33.123+00:00"
- "status": 400
- "error": Bad Request
+ "status": 401
+ "error": Unauthorized
  "path": /users/1
 }
 ```

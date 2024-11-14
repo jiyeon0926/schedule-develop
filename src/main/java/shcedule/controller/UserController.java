@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shcedule.RequestDto.UpdatePasswordRequestDto;
 import shcedule.RequestDto.UserSaveRequestDto;
 import shcedule.ResponseDto.UserFindResponseDto;
 import shcedule.ResponseDto.UserResponseDto;
@@ -43,5 +44,13 @@ public class UserController {
         userService.userDelete(userId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<Void> updatePassword(@PathVariable Long userId,
+                                                          @RequestBody UpdatePasswordRequestDto passwordRequestDto) {
+        userService.updatePassword(userId, passwordRequestDto.getOldPassword(), passwordRequestDto.getNewPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
