@@ -1,11 +1,11 @@
 package shcedule.RequestDto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ScheduleUpdateRequestDto {
 
     @NotNull

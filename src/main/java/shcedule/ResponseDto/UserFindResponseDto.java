@@ -1,6 +1,5 @@
 package shcedule.ResponseDto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import shcedule.entity.User;
 
@@ -9,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Getter
-@AllArgsConstructor
 public class UserFindResponseDto {
 
     private final Long userId;
