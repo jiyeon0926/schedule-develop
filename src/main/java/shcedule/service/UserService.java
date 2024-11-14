@@ -10,7 +10,9 @@ import shcedule.ResponseDto.UserResponseDto;
 import shcedule.entity.User;
 import shcedule.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -36,5 +38,18 @@ public class UserService {
         User user = optionalUser.get();
 
         return new UserFindResponseDto(user);
+    }
+
+    public List<UserFindResponseDto> findAll() {
+        List<User> users = userRepository.findAll();
+
+        return users.stream()
+                .map(user -> new UserFindResponseDto(user))
+                .collect(Collectors.toList());
+    }
+
+    public void userDelete(Long userId) {
+        User user = userRepository.findUserByUserIdOrElseThrow(userId);
+        userRepository.delete(user);
     }
 }

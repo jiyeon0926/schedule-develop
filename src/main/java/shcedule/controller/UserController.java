@@ -9,6 +9,8 @@ import shcedule.ResponseDto.UserFindResponseDto;
 import shcedule.ResponseDto.UserResponseDto;
 import shcedule.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -26,6 +28,20 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserFindResponseDto> findUserByUserId(@PathVariable Long userId) {
         UserFindResponseDto responseDto = userService.findUserByUserId(userId);
+
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public List<UserFindResponseDto> findAll() {
+
+        return userService.findAll();
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> userDelete(@PathVariable Long userId) {
+        userService.userDelete(userId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
