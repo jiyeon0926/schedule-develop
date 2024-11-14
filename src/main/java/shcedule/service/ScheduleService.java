@@ -46,7 +46,7 @@ public class ScheduleService {
     }
 
     public List<ScheduleResponseDto> findAll() {
-        List<Schedule> schedules = scheduleRepository.findAll();
+        List<Schedule> schedules = scheduleRepository.findAllByOrderByModifiedDateDesc();
 
         return schedules.stream()
                 .map(schedule -> new ScheduleResponseDto(schedule))

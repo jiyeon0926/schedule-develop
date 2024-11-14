@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public List<UserFindResponseDto> findAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllByOrderByModifiedDateDesc();
 
         return users.stream()
                 .map(user -> new UserFindResponseDto(user))
