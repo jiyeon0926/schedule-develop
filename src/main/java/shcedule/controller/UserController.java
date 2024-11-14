@@ -3,6 +3,7 @@ package shcedule.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import shcedule.RequestDto.UpdatePasswordRequestDto;
 import shcedule.RequestDto.UserSaveRequestDto;
@@ -20,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> userSave(@RequestBody UserSaveRequestDto saveRequestDto) {
+    public ResponseEntity<UserResponseDto> userSave(@Validated @RequestBody UserSaveRequestDto saveRequestDto) {
         UserResponseDto responseDto = userService.userSave(saveRequestDto.getName(), saveRequestDto.getEmail(), saveRequestDto.getPassword());
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
@@ -48,7 +49,7 @@ public class UserController {
 
     @PatchMapping("/{userId}")
     public ResponseEntity<Void> updatePassword(@PathVariable Long userId,
-                                                          @RequestBody UpdatePasswordRequestDto passwordRequestDto) {
+                                               @Validated @RequestBody UpdatePasswordRequestDto passwordRequestDto) {
         userService.updatePassword(userId, passwordRequestDto.getOldPassword(), passwordRequestDto.getNewPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
