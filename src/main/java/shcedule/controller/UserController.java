@@ -3,11 +3,9 @@ package shcedule.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shcedule.RequestDto.UserSaveRequestDto;
+import shcedule.ResponseDto.UserFindResponseDto;
 import shcedule.ResponseDto.UserResponseDto;
 import shcedule.service.UserService;
 
@@ -23,5 +21,11 @@ public class UserController {
         UserResponseDto responseDto = userService.userSave(saveRequestDto.getName(), saveRequestDto.getEmail(), saveRequestDto.getPassword());
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserFindResponseDto> findUserByUserId(@PathVariable Long userId) {
+        UserFindResponseDto responseDto = userService.findUserByUserId(userId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
