@@ -192,14 +192,14 @@ HTTP/1.1 204 No Content
 |유저 비밀번호 수정|PATCH|/users/{userId}|200 OK|400 Bad Request, 404 Not Found|
 |유저 삭제|DELETE|/users/{userId}|204 No Content|404 Not Found|
 
-|이름|타입|설명|요청 필수 여부|
-|:---|:---|:---|:---:|
-|userId|long|유저 식별자|N|
-|name|string|이름|Y|
-|email|string|이메일|Y|
-|password|string|비밀번호|Y|
-|createdDate|timestamp|작성일|N|
-|modifiedDate|timestamp|수정일|N|
+|이름|타입| 설명     |요청 필수 여부|
+|:---|:---|:-------|:---:|
+|userId|long| 유저 식별자 |N|
+|name|string| 이름     |Y|
+|email|string| 이메일    |Y|
+|password|string| 비밀번호   |Y|
+|createdDate|timestamp| 등록일    |N|
+|modifiedDate|timestamp| 수정일    |N|
 
 ### 1️⃣ 유저 등록
 #### Request
@@ -357,5 +357,4 @@ HTTP/1.1 204 No Content
 
 # ☁ ERD
 - user 테이블에 등록된 유저만 일정 등록을 할 수 있음
-- 1 : N
 <img src="https://github.com/user-attachments/assets/92d989a0-764d-4322-92ec-976caf613c62"/>
