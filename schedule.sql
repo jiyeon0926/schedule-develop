@@ -19,5 +19,5 @@ CREATE TABLE `schedule` (
   `modifiedDate` timestamp NOT NULL COMMENT '수정일',
   PRIMARY KEY (`id`),
   KEY `schedule_user_FK` (`userId`),
-  CONSTRAINT `schedule_user_FK` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
+  CONSTRAINT `schedule_user_FK` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 );
