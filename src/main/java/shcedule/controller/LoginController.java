@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shcedule.RequestDto.LoginRequestDto;
+import shcedule.config.PasswordEncoder;
 import shcedule.entity.User;
 import shcedule.repository.UserRepository;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class LoginController {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody LoginRequestDto requestDto, HttpSession session) {
@@ -24,7 +26,7 @@ public class LoginController {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
-        if (user.isPresent() && user.get().getPassword().equals(password)) {
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             session.setAttribute("email", email);
 
             return new ResponseEntity<>(HttpStatus.OK);

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import shcedule.ResponseDto.UserFindResponseDto;
 import shcedule.ResponseDto.UserResponseDto;
+import shcedule.config.PasswordEncoder;
 import shcedule.entity.User;
 import shcedule.repository.UserRepository;
 
@@ -20,9 +21,13 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto userSave(String name, String email, String password) {
-        User user = new User(name, email, password);
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(name, email, encodedPassword);
         User savedUser = userRepository.save(user);
 
         return new UserResponseDto(savedUser);
@@ -56,10 +61,11 @@ public class UserService {
     public void updatePassword(Long userId, String oldPassword, String newPassword) {
         User user = userRepository.findUserByUserIdOrElseThrow(userId);
 
-        if (!user.getPassword().equals(oldPassword)) {
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password does not match.");
         }
 
-        user.updatePassword(newPassword);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.updatePassword(encodedPassword);
     }
 }
