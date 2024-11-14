@@ -24,7 +24,10 @@ public class Schedule {
     @Setter
     private User user; // 유저 식별자 아이디 (외래키)
 
+    @Setter
     private String title;
+
+    @Setter
     private String contents;
 
     @Column(name = "createdDate")

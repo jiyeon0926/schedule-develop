@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shcedule.RequestDto.ScheduleSaveRequestDto;
+import shcedule.RequestDto.ScheduleUpdateRequestDto;
 import shcedule.ResponseDto.ScheduleResponseDto;
 import shcedule.service.ScheduleService;
 
@@ -42,5 +43,13 @@ public class ScheduleController {
         scheduleService.scheduleDelete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> scheduleUpdate(@PathVariable Long id,
+                                                              @RequestBody ScheduleUpdateRequestDto updateRequestDto) {
+        ScheduleResponseDto responseDto = scheduleService.scheduleUpdate(id, updateRequestDto.getTitle(), updateRequestDto.getContents());
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

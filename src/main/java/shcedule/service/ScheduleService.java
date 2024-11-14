@@ -57,4 +57,19 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
         scheduleRepository.delete(schedule);
     }
+
+    public ScheduleResponseDto scheduleUpdate(Long id, String title, String contents) {
+        Optional<Schedule> byId = scheduleRepository.findById(id);
+
+        if (byId.isPresent()) {
+            Schedule schedule = byId.get();
+            schedule.setTitle(title);
+            schedule.setContents(contents);
+            Schedule updatedSchedule = scheduleRepository.save(schedule);
+
+            return new ScheduleResponseDto(updatedSchedule);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
+    }
 }
