@@ -26,6 +26,7 @@ public class LoginController {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
+        // 인증되면 세션에 email 저장
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             session.setAttribute("email", email);
 

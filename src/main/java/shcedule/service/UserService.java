@@ -24,9 +24,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto userSave(String name, String email, String password) {
-        // 비밀번호 암호화
+        // 비밀번호 암호화 후 저장
         String encodedPassword = passwordEncoder.encode(password);
-
         User user = new User(name, email, encodedPassword);
         User savedUser = userRepository.save(user);
 
